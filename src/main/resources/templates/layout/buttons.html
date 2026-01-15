@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="~{layout/layout :: head}">
+        <title>Botones</title>
+    </head>
+
+    <body>
+        <button th:fragment="addClientButton" 
+                type="button" 
+                data-path="/getClientForm" 
+                onclick="openClientModal(this)"
+                class="btn btn-primary btn-block w-100">
+            <i class="fas fa-plus"></i> [[#{client.add}]]
+        </button>
+
+        <button th:fragment="saveButton" 
+                type="submit" 
+                class="btn btn-primary">
+            <i class="fas fa-save"></i> [[#{action.save}]]
+        </button>
+
+        <button th:fragment="updateButton"
+                type="button"
+                th:attr="data-id=${client.clientId}"
+                data-path="/updateClient/"
+                onclick="openClientModal(this)" 
+                class="btn btn-warning btn-sm">
+            <i class="fas fa-pen"></i> [[#{action.update}]]
+        </button>
+        
+        <a th:fragment="deleteButton"
+           th:attr="onclick=|deleteConfirmation('${client.fullName}', '#{action.delete.confirmation}')|" 
+           th:href="@{/deleteClient(clientId=${client.clientId})}" 
+           class="btn btn-danger btn-sm">
+            <i class="fas fa-trash"></i> [[#{action.delete}]]
+        </a>
+
+        <a th:if="${!#strings.isEmpty(clientId)}"
+           th:fragment="deleteFormButton"
+           th:attr="onclick=|deleteConfirmation('*{fullName}', '#{action.delete.confirmation}')|" 
+           th:href="@{/deleteClient(clientId=*{clientId})}" 
+           class="btn btn-danger">
+            <i class="fas fa-trash"></i> [[#{action.delete}]]
+        </a>
+
+        <a th:fragment="returnButton" 
+           th:href="@{/}" 
+           class="btn btn-secondary">
+            <i class="fas fa-angle-double-left"></i> [[#{action.return}]]
+        </a>
+        
+        <a th:fragment="cancelClientModalButton" 
+           data-bs-dismiss="modal" 
+           name="clientModal" 
+           class="btn btn-secondary">
+            [[#{action.cancel}]]
+        </a>
+
+        <section th:replace="~{layout/layout :: scripts}"></section>
+    </body>
+
+</html>

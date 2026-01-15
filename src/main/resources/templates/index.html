@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
+      th:attr="data-bs-theme=${theme}">
+
+    <head th:replace="~{layout/layout :: head}">
+        <title>[[#{layout.title}]]</title>
+    </head>
+
+    <body class="d-flex flex-column min-vh-100">
+        <!-- Header -->
+        <header th:replace="~{layout/layout :: header}"></header>
+
+        <!-- Boton de Nuevo Cliente -->
+        <section id="indexButtons" class="py-4 mb-2">
+            <div class="container">
+                <div class="row">
+                    <div th:if="${roles.isAdmin}" class="col-md-3">
+                        <button th:replace="~{layout/buttons :: addClientButton}"></button>    
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Listado y Resumen de Clientes  -->
+        <section th:replace="~{clientList :: clientList}"></section>
+        
+        <!-- Modal con Formulario de Cliente -->
+        <div th:replace="~{clientModal :: clientModal}"></div>
+
+        <!-- Footer -->
+        <footer th:replace="~{layout/layout :: footer}"></footer>
+
+        <!-- Scripts -->
+        <section th:replace="~{layout/layout :: scripts}"></section>
+    </body>
+
+</html>

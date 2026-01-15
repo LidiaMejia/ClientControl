@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="~{layout/layout :: head}">
+        <title>Listado de Clientes</title>
+    </head>
+
+    <body>
+        <section th:fragment="clientList" id="clientListSection">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="card">
+
+                            <div class="card-header">
+                                <h4>[[#{client.list.title}]]</h4>
+                            </div>
+
+                            <div class="card-body">
+                                <table th:if="${clientList != null and !clientList.empty}" class="table table-striped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>#</th>
+                                            <th th:text="#{client.name}"></th>
+                                            <th th:text="#{client.phone}"></th>
+                                            <th th:text="#{client.balance}"></th>
+                                            <th th:if="${roles.isAdmin}" th:text="#{action.title}"></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr th:each="client : ${clientList}">
+                                            <td th:text="${clientStat.count}"></td>
+                                            <td th:text="${client.fullName}"></td>
+                                            <td th:text="${client.phone}"></td>
+                                            <td>[[#{app.currency-symbol}]] [[${client.balance}]]</td>
+                                            <td th:if="${roles.isAdmin}">
+                                                <button th:replace="~{layout/buttons :: updateButton}"></button>
+
+                                                <a th:replace="~{layout/buttons :: deleteButton}"></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div th:if="${clientList == null or clientList.empty}">
+                                    <p th:text="#{client.list.empty}"></p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Resumen datos de Clientes -->
+                    <div th:replace="~{clientBrief :: clientBrief}"></div>             
+                </div>
+            </div>
+        </section>
+
+        <section th:replace="~{layout/layout :: scripts}"></section>
+    </body>
+
+</html>

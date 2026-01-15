@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns="http://www.w3.org/1999/xhtml"
+      th:attr="data-bs-theme=${theme}">
+    
+    <head th:replace="~{layout/layout :: head}">
+        <title>[[#{login.title}]]</title>
+    </head>
+
+    <body class="d-flex flex-column min-vh-100">
+        <!-- Header -->
+        <header th:replace="~{layout/layout :: header}"></header>
+
+        <section id="login"> 
+            <div class="container py-5"> 
+                <div class="row"> 
+                    <div class="col-md-6 mx-auto"> 
+                        <div class="card text-center"> 
+                            <div class="card-header"> 
+                                <h4>[[#{login.title}]]</h4> 
+                            </div>
+                            
+                            <div class="card-body p-4">
+                                <form th:action="@{/login}" method="POST" id="loginForm" name="loginForm">
+                                    <div class="mb-3">
+                                        <label for="username" th:text="#{login.username}" class="form-label"></label>
+                                        <input type="text" id="username" name="username" class="form-control text-center"/>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <label for="password" th:text="#{login.password}" class="form-label"></label>
+                                        <input type="password" id="password" name="password" class="form-control text-center"/>    
+                                    </div>
+
+                                    <button th:text="#{action.login}" type="submit" id="loginButton" name="loginButton" class="btn btn-primary w-100"></button>
+                                </form>
+                            </div> 
+                        </div> 
+                    </div> 
+                </div> 
+            </div> 
+        </section>
+
+        <!-- footer -->
+        <footer th:replace="~{layout/layout :: footer}"></footer>
+
+        <section th:replace="~{layout/layout :: scripts}"></section>
+    </body>
+</html>

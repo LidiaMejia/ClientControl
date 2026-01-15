@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+    
+    <head th:fragment="head">
+        <title>[[#{layout.title}]]</title>
+        
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <!-- Estilos de Bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"/>
+    </head>
+    
+    <body class="d-flex flex-column min-vh-100">      
+        <header th:fragment="header">            
+            <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
+                <div class="container">                   
+                    <div class="row">
+                        <div class="col-md-6 py-3 text-white">
+                            <h1 class="d-flex align-items-center m-0">
+                                <i class="fas fa-user-cog fa-sm me-2"></i>
+                                <a th:href="@{/}" th:text="#{layout.title}" class="navbar-brand"/>
+                            </h1>
+                        </div>
+                    </div>
+                    
+                    <button class="navbar-toggler" type="button" 
+                            data-bs-toggle="collapse" data-bs-target="#navbarCollapse" 
+                            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+                        <ul sec:authorize="isAuthenticated()" class="navbar-nav ms-auto">
+                            <li class="nav-item me-4">
+                                <span class="nav-link">
+                                    <i class="fas fa-user-circle"></i>
+                                    
+                                    <span th:text="#{layout.welcome}"></span>
+                                    <span sec:authentication="name"></span>
+                                    (<span sec:authentication="principal.authorities"></span>)
+                                </span>
+                            </li>
+                            
+                            <li class="nav-item">
+                                <form th:action="@{/logout}" id="logoutForm" name="logoutForm" method="POST">
+                                    <button type="submit" class="btn btn-link nav-link" th:alt="#{action.logout}">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        [[#{action.logout}]]
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                        
+                        <p class="lead justify-content-end text-center text-white mb-0 ms-4">
+                            <span>
+                                <a th:href="@{${currentUrl}(theme=light)}" class="text-decoration-none">🌞</a> |
+                                <a th:href="@{${currentUrl}(theme=dark)}" class="text-decoration-none">🌙</a>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        
+        <footer th:fragment="footer" class="bg-dark text-white mt-auto py-4">
+            <div class="container">
+                <div class="col">
+                    <p class="lead text-center mb-0">
+                        <span>
+                            <a th:href="@{${currentUrl}(lang=es)}">ES</a> | 
+                            <a th:href="@{${currentUrl}(lang=en)}">EN</a> |
+                        </span>
+
+                        <span>[[#{layout.footer}]] <a href="https://www.udemy.com/course/universidad-java-especialista-en-java-desde-cero-a-master/" target="_blank">Udemy.com</a></span>
+                    </p>
+                </div>
+            </div>
+        </footer>
+        
+        <section th:fragment="scripts">
+            <!-- Script de Bootstrap -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+        
+            <!-- Iconos de Fontawesome -->
+            <script src="https://kit.fontawesome.com/b17457e142.js" crossorigin="anonymous"></script>
+            
+            <!-- Personalizados -->
+            <script th:src="@{/js/custom.js}"></script>
+        </section>
+    </body>
+    
+</html>

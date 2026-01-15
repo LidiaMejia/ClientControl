@@ -1,0 +1,72 @@
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="~{layout/layout :: head}">
+        <title>[[#{layout.title}]]</title>
+    </head>
+
+    <body class="d-flex flex-column min-vh-100">
+        <header th:replace="~{layout/layout :: header}"></header>
+
+        <div th:fragment="clientForm">
+            <form th:action="@{/saveClient}" th:object="${client}" method="POST" name="clientForm" id="clientForm" class="was-validated">
+
+                <div class="modal-header bg-info text-white">
+                    <h5 id="clientModalLabel" class="modal-title">[[#{client.form.title}]]</h5>
+
+                    <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn-close"></button>
+                </div> 
+
+                <div class="modal-body">
+                    <input type="hidden" th:field="*{clientId}"/>
+
+                    <div class="form-group mb-3">
+                        <label for="firstName">[[#{client.first-name}]]:</label>
+                        <input type="text" th:field="*{firstName}" class="form-control" required=""/>
+                        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-sm text-danger errorMessage"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="lastName">[[#{client.last-name}]]:</label>
+                        <input type="text" th:field="*{lastName}" class="form-control" required=""/>
+                        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="text-sm text-danger errorMessage"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="phone">[[#{client.phone}]]:</label>
+                        <input type="tel" th:field="*{phone}" class="form-control" required=""/>
+                        <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="text-sm text-danger errorMessage"></span> 
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="email">[[#{client.email}]]:</label>
+                        <input type="text" th:field="*{email}" class="form-control"/>
+                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-sm text-danger errorMessage"></span>   
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="balance">[[#{client.balance}]]:</label>
+                        <input type="number" min="1" step="any" th:field="*{balance}" class="form-control" required=""/>
+                        <span th:if="${#fields.hasErrors('balance')}" th:errors="*{balance}" class="text-sm text-danger errorMessage"></span>  
+                    </div>
+                </div>
+
+                <div class="modal-footer d-flex justify-content-between">
+                    <div class="me-auto">
+                        <button th:replace="~{layout/buttons :: cancelClientModalButton}"></button>
+                    </div>
+                    
+                    <div>
+                        <button th:replace="~{layout/buttons :: deleteFormButton}"></button>
+
+                        <button th:replace="~{layout/buttons :: saveButton}"></button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <section th:replace="~{layout/layout :: scripts}"></section>
+    </body>
+</html>

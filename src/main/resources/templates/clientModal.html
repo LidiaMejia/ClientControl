@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="~{layout/layout :: header}">
+        <title>Modal de Cliente</title>
+    </head>
+
+    <body>
+        <div th:fragment="clientModal" id="clientModal" aria-labelledby="clientModalLabel" aria-hidden="true" class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" id="clientModalContent">
+                    Se carga el fragmento del formulario de cliente de forma dinamica mediante AJAX/JS
+                </div>
+            </div>
+        </div>
+
+        <section th:replace="~{layout/layout :: scripts}"></section>
+    </body>
+
+</html>

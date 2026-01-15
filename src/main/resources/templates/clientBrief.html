@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="~{layout/layout :: header}">
+        <title>[[#{layout.title}]]</title>
+    </head>
+
+    <body>
+        <div th:fragment="clientBrief" class="col-md-3">
+            <div th:classappend="${clientBrief.balanceBackgroundColor}" class="card text-center text-white bg-primary mb-3">        
+                <div class="card-body">
+                    <h4>[[#{client.balance-total}]] ([[${clientBrief.balanceStatus}]])</h4>
+
+                    <h4 class="display-6">
+                        [[#{app.currency-symbol}]] [[${clientBrief.totalBalance}]]
+                    </h4>
+                </div>        
+            </div>
+
+            <div class="card text-center text-white bg-primary mb-3">        
+                <div class="card-body">
+                    <h4>[[#{client.total}]]</h4>
+
+                    <h4 class="display-6">
+                        <i class="fas fa-users"></i>
+                        [[${clientBrief.totalClients}]]
+                    </h4>
+                </div>        
+            </div>
+        </div>
+
+        <section th:replace="~{layout/layout :: scripts}"></section>
+    </body>
+
+</html>
